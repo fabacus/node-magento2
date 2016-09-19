@@ -71,7 +71,7 @@ class MagentoTwo {
   }
 
   _initHelpers() {
-    this.backend = require('./lib/backend')(this);
+    //this.backend = require('./lib/backend')(this);
   }
 
   get(path, params) {
