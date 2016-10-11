@@ -71,7 +71,9 @@ class MagentoTwo {
   }
 
   _initHelpers() {
-    //this.backend = require('./lib/backend')(this);
+    this.module = require('./lib/module')(this);
+    this.bundleProduct = require('./lib/bundleProduct')(this);
+    this.catalog = require('./lib/catalog')(this);
   }
 
   get(path, params) {
@@ -100,6 +102,13 @@ class MagentoTwo {
 
   _send(url, method, params, data, options) {
     let uri = [this.baseUrl,this.rootPath,url].join('/').replace(/\/\//g,'/').replace(':/', '://');
+
+    //check if there's any missing parameters
+    let missingFields = uri.match(/(\{[a-zA-Z0-9_]+\})/g)
+    if(missingFields && missingFields.length > 0) {
+      return Promise.reject('URL missing parameters: '+missingFields.join(", "));
+    }
+
     let headers = {}
     headers['User-Agent'] = this.options.userAgent;
     if(this.authKey) {
@@ -135,8 +144,12 @@ class MagentoTwo {
   _format(url, replace, replaceTemplate) {
     replaceTemplate = replaceTemplate || '{{key}}';
     for(let key of Object.keys(replace)) {
-      let replaceVal = replaceTemplate.replace('{key}', key);
-      url = url.replace(replaceVal, replace[key]);
+      let replaceVal = replace[key];
+      let replaceKey = replaceTemplate.replace('{key}', key);
+      if(typeof replaceVal == 'undefined') {
+        throw new Error('Missing url parameter: '+replaceKey);
+      }
+      url = url.replace(replaceKey, replace[key]);
     }
     return url;
   }
