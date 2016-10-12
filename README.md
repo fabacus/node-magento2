@@ -71,3 +71,25 @@ mageClient.init();
 mageClient.catalog.product.get('SKU_123').then(product => {}) //get a product
 mageClient.configProduct('CONFIG_123').options.get().then(options => {}) //get the options for a configurable
 ```
+
+## Options Object
+
+```javascript
+{
+  url: null,
+  store: 'default', //set a store to contextualise in
+  authentication: {
+    login: {
+      type: 'admin', //admin or customer
+      username: undefined,
+      password: undefined
+    },
+    integration: { //from the integrations section in the magento2 backend
+      consumer_key: undefined,
+      consumer_secret: undefined,
+      access_token: undefined,
+      access_token_secret: undefined
+    }
+  }
+}
+```
