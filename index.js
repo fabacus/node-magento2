@@ -73,6 +73,7 @@ class MagentoTwo {
   _initHelpers() {
     this.module = require('./lib/module')(this);
     this.bundleProduct = require('./lib/bundleProduct')(this);
+    this.configProduct = require('./lib/configProduct')(this);
     this.catalog = require('./lib/catalog')(this);
   }
 
