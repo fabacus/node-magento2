@@ -1,6 +1,6 @@
 {
   "name": "magento2-promise",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Node JS library to connect to magento 2 API using promises",
   "main": "index.js",
   "scripts": {
