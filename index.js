@@ -75,6 +75,7 @@ class MagentoTwo {
     this.bundleProduct = require('./lib/bundleProduct')(this);
     this.configProduct = require('./lib/configProduct')(this);
     this.catalog = require('./lib/catalog')(this);
+    this.sales = require('./lib/sales')(this);
   }
 
   get(path, params) {
