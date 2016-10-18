@@ -113,6 +113,7 @@ class MagentoTwo {
 
     let headers = {}
     headers['User-Agent'] = this.options.userAgent;
+    headers['Content-Type'] = 'application/json';
     if(this.authKey) {
       headers.Authorization = 'Bearer '+this.authKey;
     }
@@ -138,6 +139,7 @@ class MagentoTwo {
         }
 
         //otherwise fail it :)
+        console.log(returnValue);
         reject(this._format(returnValue.message, returnValue.parameters, '%{key}'));
       })
     })
