@@ -122,7 +122,7 @@ class MagentoTwo {
         method: method,
         headers: headers,
         qs: params,
-        body: data
+        body: JSON.stringify(data)
       }, (err, response, body) => {
         if(err) reject(err);
         let returnValue = body;
