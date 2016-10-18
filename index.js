@@ -139,8 +139,11 @@ class MagentoTwo {
         }
 
         //otherwise fail it :)
-        console.log(returnValue);
-        reject(this._format(returnValue.message, returnValue.parameters, '%{key}'));
+        if(returnValue.parameters) {
+          reject(this._format(returnValue.message, returnValue.parameters, '%{key}'));
+        } else {
+          reject(returnValue.message);
+        }
       })
     })
   }
