@@ -123,6 +123,7 @@ class MagentoTwo {
         uri: uri,
         method: method,
         headers: headers,
+        rejectUnauthorized: false,
         qs: params,
         body: JSON.stringify(data)
       }, (err, response, body) => {
