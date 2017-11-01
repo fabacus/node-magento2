@@ -65,8 +65,10 @@ class MagentoTwo {
           });
       } else if(this.options.authentication.integration.access_token) {
         this.authKey = this.options.authentication.integration.access_token;
+        resolve(this);
+      } else {
+        resolve(this);
       }
-      resolve(this);
     });
   }
 
