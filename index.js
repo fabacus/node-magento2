@@ -46,29 +46,30 @@ class MagentoTwo {
   }
 
   init() {
-    return new Promise((resolve, reject) => {
-      this._initHelpers();
-      if(this.options.authentication.login.username) {
-        let path;
-        if(this.options.authentication.login.type == 'admin') {
-          path = '/V1/integration/admin/token'
-        } else {
-          path = '/V1/integration/customer/token'
-        }
-        this.post(path, {username: this.options.authentication.login.username, password: this.options.authentication.login.password})
-          .then(token => {
-            this.authKey = token;
-            resolve(this);
-          })
-          .catch(e => {
-            reject(e);
-          });
-      } else if(this.options.authentication.integration.access_token) {
-        this.authKey = this.options.authentication.integration.access_token;
-        resolve(this);
-      } else {
-        resolve(this);
-      }
+    this._initHelpers();
+
+    if(this.options.authentication.integration.access_token) {
+      this.authKey = this.options.authentication.integration.access_token;
+      return Promise.resolve(this);
+    }
+
+    if(!this.options.authentication.login.username) {
+      this.authKey = this.options.authentication.integration.access_token;
+      return Promise.reject(new Error("No valid authentication method found."));
+    }
+
+    let path;
+
+    if(this.options.authentication.login.type == 'admin') {
+      path = '/V1/integration/admin/token'
+    } else {
+      path = '/V1/integration/customer/token'
+    }
+
+    return this.post(path, {username: this.options.authentication.login.username, password: this.options.authentication.login.password})
+    .then(token => {
+      this.authKey = token;
+      return this;
     });
   }
 
