@@ -3,7 +3,7 @@ This package resolve issue with certificate (https)
 
 ## Installation
 ```bash
-npm install node-magento2
+npm install node-mage2
 ```
 
 ## Overview

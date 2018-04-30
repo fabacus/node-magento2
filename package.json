@@ -1,6 +1,6 @@
 {
-  "name": "node-magento2",
-  "version": "1.1.4",
+  "name": "node-mage2",
+  "version": "1.1.5",
   "description": "Node JS library to connect to magento 2 API using promises",
   "main": "index.js",
   "scripts": {
@@ -8,19 +8,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fabacus/node-magento2.git"
+    "url": "git+https://github.com/anadahalli/node-magento2.git"
   },
   "keywords": [
     "magento2",
     "promises",
     "rest"
   ],
-  "author": "Patrick McKinley <patrick.mckinley@fabacus.com>",
+  "author": "Ashwath Nadahalli <anadahalli@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fabacus/node-magento2/issues"
+    "url": "https://github.com/anadahalli/node-magento2/issues"
   },
-  "homepage": "https://github.com/fabacus/node-magento2#readme",
+  "homepage": "https://github.com/anadahalli/node-magento2#readme",
   "dependencies": {
     "deepmerge": "^0.2.10",
     "qs": "^6.2.1",
