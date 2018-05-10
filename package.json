@@ -1,6 +1,6 @@
 {
   "name": "node-mage2",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Node JS library to connect to magento 2 API using promises",
   "main": "index.js",
   "scripts": {
