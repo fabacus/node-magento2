@@ -3,7 +3,7 @@ This package resolve issue with certificate (https)
 
 ## Installation
 ```bash
-npm install node-magento2
+npm install node-mage2
 ```
 
 ## Overview
@@ -16,7 +16,7 @@ npm install node-magento2
 ```javascript
 "use strict";
 
-const Magento2 = require('node-magento2');
+const Magento2 = require('node-mage2');
 
 //instantiate the client object
 const options = {
@@ -54,7 +54,7 @@ Helpers add a Javascript style API to generate the URLs.
 ```javascript
 "use strict";
 
-const Magento2 = require('node-magento2');
+const Magento2 = require('node-mage2');
 
 //instantiate the client object
 const options = {
