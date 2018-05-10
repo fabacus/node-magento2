@@ -16,7 +16,7 @@ npm install node-mage2
 ```javascript
 "use strict";
 
-const Magento2 = require('node-magento2');
+const Magento2 = require('node-mage2');
 
 //instantiate the client object
 const options = {
@@ -54,7 +54,7 @@ Helpers add a Javascript style API to generate the URLs.
 ```javascript
 "use strict";
 
-const Magento2 = require('node-magento2');
+const Magento2 = require('node-mage2');
 
 //instantiate the client object
 const options = {
