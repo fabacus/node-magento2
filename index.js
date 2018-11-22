@@ -43,6 +43,9 @@ class MagentoTwo {
     this.options = deepmerge(defaultOptions, options);
     this.rootPath = 'rest/'+this.options.store;
     this.authKey = false;
+    if(this.options.authentication.integration.access_token) {
+      this.authKey = this.options.authentication.integration.access_token;
+    }
   }
 
   init() {
@@ -55,7 +58,7 @@ class MagentoTwo {
         } else {
           path = '/V1/integration/customer/token'
         }
-        this.post(path, {username: this.options.authentication.login.username, password: this.options.authentication.login.password})
+        return this.post(path, {username: this.options.authentication.login.username, password: this.options.authentication.login.password})
           .then(token => {
             this.authKey = token;
             resolve(this);
@@ -63,8 +66,6 @@ class MagentoTwo {
           .catch(e => {
             reject(e);
           });
-      } else if(this.options.authentication.integration.access_token) {
-        this.authKey = this.options.authentication.integration.access_token;
       }
       resolve(this);
     });
@@ -117,6 +118,14 @@ class MagentoTwo {
     headers['Content-Type'] = 'application/json';
     if(this.authKey) {
       headers.Authorization = 'Bearer '+this.authKey;
+    }
+    if(this.options.authentication.basic.username && this.options.authentication.basic.password) {
+      headers.Authorization = "Basic " 
+        + new Buffer(this.options.authentication.basic.username 
+        + ":" + this.options.authentication.basic.password).toString("base64");
+      if(this.authKey) {
+        headers['X-Auth'] = 'Bearer '+this.authKey;
+      }
     }
     return new Promise((resolve, reject) => {
       request({
