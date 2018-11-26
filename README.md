@@ -97,13 +97,13 @@ const options = {
 const mageClient = new Magento2('http://magento.root.url', options)
 
 //initialise the helpers & generate a token
-mageClient.init(m2 => {
-  //use the api 
-  m2.put('/V1/products/SKU_123', {visibility: 1}) //update product SKU_123
-    .then(product => {
-      //product data that's been modified to be invisible
-    })
-});
+mageClient.init()
+
+//use the api 
+mageClient.put('/V1/products/SKU_123', {visibility: 1}) //update product SKU_123
+  .then(product => {
+    //product data that's been modified to be invisible
+})
 ```
 ## Using Basic HTTP Auth
 Magento's API uses a HTTP Authorization header to authenticate.
@@ -141,12 +141,12 @@ const options = {
 const mageClient = new Magento2('http://magento.root.url', options)
 
 //initialise the helpers & generate a token
-mageClient.init(m2 => {
-  //use the api 
-  m2.put('/V1/products/SKU_123', {visibility: 1}) //update product SKU_123
-    .then(product => {
-      //product data that's been modified to be invisible
-    })
+mageClient.init()
+
+//use the api 
+mageClient.put('/V1/products/SKU_123', {visibility: 1}) //update product SKU_123
+  .then(product => {
+    //product data that's been modified to be invisible
 });
 ```
  
