@@ -18,7 +18,7 @@ npm install node-magento2
 
 const Magento2 = require('node-magento2');
 
-//instantiate the client object
+//instantiate the client object with access token
 const options = {
   authentication: {
     integration: {
@@ -56,7 +56,7 @@ Helpers add a Javascript style API to generate the URLs.
 
 const Magento2 = require('node-magento2');
 
-//instantiate the client object
+//instantiate the client object using access token
 const options = {
   authentication: {
     integration: {
@@ -74,7 +74,82 @@ mageClient.init();
 mageClient.catalog.product.get('SKU_123').then(product => {}) //get a product
 mageClient.configProduct('CONFIG_123').options.get().then(options => {}) //get the options for a configurable
 ```
+ 
+## Using a Magento account to login 
+You can use a Magento admin or customer account to generate an access token
 
+```javascript
+"use strict";
+
+const Magento2 = require('node-magento2');
+
+//instantiate the client object using access token
+const options = {
+  authentication: {
+    login: {
+      username: 'apiuser',
+      password: 'password123',
+      type: 'admin',
+    },
+  }
+}
+
+const mageClient = new Magento2('http://magento.root.url', options)
+
+//initialise the helpers & generate a token
+mageClient.init()
+
+//use the api 
+mageClient.put('/V1/products/SKU_123', {visibility: 1}) //update product SKU_123
+  .then(product => {
+    //product data that's been modified to be invisible
+})
+```
+## Using Basic HTTP Auth
+Magento's API uses a HTTP Authorization header to authenticate.
+Multiple authorization headers do not work with all web servers.
+If your dev/staging server is protected behind Basic HTTP Auth the client will send the Basic Auth header as the HTTP Authentication header.
+The Magento authentication header is moved to a header called X-Auth.
+To get Magento/PHP to read the authentication header/token your server can be configured to pass the X-Auth HTTP header to PHP as the Authorization header.
+
+e.g. on nginx with PHP-FPM
+
+```shell
+    fastcgi_param  HTTP_AUTHORIZATION $http_x_auth;
+```
+
+```javascript
+"use strict";
+
+const Magento2 = require('node-magento2');
+
+//instantiate the client object using access token
+const options = {
+  authentication: {
+    login: {
+      username: 'apiuser',
+      password: 'password123',
+      type: 'admin',
+    },
+    basic: {
+      username: 'httpuser',
+      password: 'httppassword'
+    }
+  }
+}
+
+const mageClient = new Magento2('http://magento.root.url', options)
+
+//initialise the helpers & generate a token
+mageClient.init()
+
+//use the api 
+mageClient.put('/V1/products/SKU_123', {visibility: 1}) //update product SKU_123
+  .then(product => {
+    //product data that's been modified to be invisible
+});
+```
+ 
 ## Options Object
 
 ```javascript
@@ -92,6 +167,10 @@ mageClient.configProduct('CONFIG_123').options.get().then(options => {}) //get t
       consumer_secret: undefined,
       access_token: undefined,
       access_token_secret: undefined
+    },
+    basic: {
+      username: 'bobbytables',
+      password: 'password123'
     }
   }
 }
